@@ -1,0 +1,23 @@
+---
+
+- name: Provision Python
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Boostrap python
+      raw: apt-get -y update && apt-get install -y python3
+
+- name: Provision Server
+  hosts: all
+
+  tasks:
+    - name: Put runtime programs
+      copy:
+        src: files/{{ item }}
+        dest: /{{ item }}
+        mode: 0755
+        owner: root
+        group: root
+      with_items:
+        - server.py
+        - entrypoint.sh 
