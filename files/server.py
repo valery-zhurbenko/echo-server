@@ -28,7 +28,7 @@ def listen():
                     print('sending data back to the client')
                     current_connection.sendall('Response: '.encode('utf-8'))
                     current_connection.sendall(data)
-                    current_connection.send(client_address.encode('utf-8'))
+                    current_connection.sendall(client_address.encode('utf-8'))
                     current_connection.sendall('\n'.encode('utf-8'))
                     print(data, 'from:', client_address, '\n')
         finally:

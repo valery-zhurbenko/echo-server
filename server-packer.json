@@ -1,4 +1,9 @@
 {
+    "variables": {
+    "dockerlogin": "{{env `DOCKERLOGIN`}}",
+    "dockerpass": "{{env `DOCKERPASS`}}"
+    },
+
     "builders": [{
         "type": "docker",
         "image": "python",
@@ -11,9 +16,27 @@
         ]
     }],
 
-    "provisioners": [{
+    "provisioners": [
+        {
         "type": "ansible",
         "user": "root",
         "playbook_file": "ansible-pl.yml"
-    }]
+        }
+    ],
+
+    "post-processors": [
+      [
+        {
+          "type": "docker-tag",
+          "repository": "valery/echo-server-python",
+          "tag": "0.1"
+        },
+        {
+          "type": "docker-push",
+          "login": true,
+          "login_username": "{{ user `dockerlogin` }}",
+          "login_password": "{{ user `dockerpass` }}"
+        }
+      ]
+    ]
 }
