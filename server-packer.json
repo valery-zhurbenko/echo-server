@@ -6,7 +6,8 @@
         "changes": [
             "EXPOSE 5432",
             "USER root",
-            "CMD python server.py"
+            "CMD [\"python\", \"server.py\"]",
+            "ENTRYPOINT [\"\"]"
         ]
     }],
 
